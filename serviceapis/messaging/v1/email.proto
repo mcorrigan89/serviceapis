@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package serviceapis.messaging.v1;
+
+message SendEmailRequest { 
+    string from_email = 1; 
+    string to_email = 2;
+    string subject = 3;
+    string body = 4;
+}
+
+message SendEmailResponse { string status = 1; }
+
+service EmailService {
+  rpc SendEmail(SendEmailRequest) returns (SendEmailResponse) {}
+}
