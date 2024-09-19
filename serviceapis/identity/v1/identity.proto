@@ -28,6 +28,10 @@ message CreateUserRequest {
 
 message CreateUserResponse { User user = 1; }
 
+message GetUserBySessionTokenRequest { string token = 1; }
+
+message GetUserBySessionTokenResponse { User user = 1; }
+
 message AuthenticateWithGoogleCodeRequest { string code = 1; }
 
 message AuthenticateWithGoogleCodeResponse { UserSession session = 1; }
@@ -41,6 +45,8 @@ message AuthenticateWithPasswordResponse { UserSession session = 1; }
 
 service IdentityService {
   rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse) {}
+  rpc GetUserBySessionToken(GetUserBySessionTokenRequest)
+      returns (GetUserBySessionTokenResponse) {}
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
   rpc AuthenticateWithGoogleCode(AuthenticateWithGoogleCodeRequest)
       returns (AuthenticateWithGoogleCodeResponse) {}
