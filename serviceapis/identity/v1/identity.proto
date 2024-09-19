@@ -10,6 +10,11 @@ message User {
   bool email_verified = 5;
 }
 
+message UserSession {
+  string token = 1;
+  string expires_at = 2;
+}
+
 message GetUserByIdRequest { string id = 1; }
 
 message GetUserByIdResponse { User user = 1; }
@@ -25,14 +30,14 @@ message CreateUserResponse { User user = 1; }
 
 message AuthenticateWithGoogleCodeRequest { string code = 1; }
 
-message AuthenticateWithGoogleCodeResponse { User user = 1; }
+message AuthenticateWithGoogleCodeResponse { UserSession session = 1; }
 
 message AuthenticateWithPasswordRequest {
   string email = 1;
   string password = 2;
 }
 
-message AuthenticateWithPasswordResponse { User user = 1; }
+message AuthenticateWithPasswordResponse { UserSession session = 1; }
 
 service IdentityService {
   rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse) {}
