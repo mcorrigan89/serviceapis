@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package serviceapis.website.v1;
+
+message SimpleTextComponent {
+  string text = 1;
+}
+
+message ImageComponent {
+  string url = 1;
+}
+
+message WebsiteComponent {
+  string id = 1;
+  oneof component_content {
+    SimpleTextComponent text_component = 2;
+    ImageComponent image_component = 3;
+  }
+}
+
+message WebsitePage {
+  string id = 1;
+  optional string title = 2;
+  optional string subtitle = 3;
+  repeated WebsiteComponent components = 4;
+}
+
+message Website {
+  string id = 1;
+  string handle = 2;
+  optional string name = 3;
+  optional string description = 4;
+  repeated WebsitePage pages = 5;
+}
+
+
+message WebsiteByHandleRequest {
+  string handle = 1;
+  optional string locale = 2;
+}
+
+message WebsiteByHandleResponse {
+  Website website = 1;
+}
+
+service WebsiteService {
+  rpc WebsiteByHandle(WebsiteByHandleRequest) returns (WebsiteByHandleResponse) {}
+}

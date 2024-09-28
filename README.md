@@ -1,6 +1,6 @@
 # Service apis for side projects
 
-### 1. [Identity API](https://github.com/mcorrigan89/messaging)
+### 1. [Identity API](https://github.com/mcorrigan89/website)
 
 Add this as a submodule to your project:
 
