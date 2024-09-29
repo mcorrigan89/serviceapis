@@ -11,12 +11,26 @@ message ImageComponent {
   string url = 1;
 }
 
+message WebsiteComponentPositioning {
+  optional int32 x_coordinate = 1;
+  optional int32 y_coordinate = 2;
+  optional int32 width = 3;
+  optional int32 height = 4;
+}
+
+message WebsiteComponentDisplay {
+  string id = 1;
+  WebsiteComponentPositioning full_screen = 2;
+  WebsiteComponentPositioning mobile_screen = 3;
+}
+
 message WebsiteComponent {
   string id = 1;
   oneof component_content {
     TextComponent text_component = 2;
     ImageComponent image_component = 3;
   }
+  WebsiteComponentDisplay display = 4;
 }
 
 message WebsiteSection {
@@ -26,7 +40,7 @@ message WebsiteSection {
 
 message WebsitePage {
   string id = 1;
-  optional string title = 2;
+  string title = 2;
   optional string subtitle = 3;
   repeated WebsiteSection sections = 4;
 }
@@ -34,7 +48,7 @@ message WebsitePage {
 message Website {
   string id = 1;
   string handle = 2;
-  optional string name = 3;
+  string name = 3;
   optional string description = 4;
   repeated WebsitePage pages = 5;
 }
@@ -49,6 +63,16 @@ message WebsiteByHandleResponse {
   Website website = 1;
 }
 
+message CreateWebsiteRequest {
+  string handle = 1;
+  optional string locale = 2;
+}
+
+message CreateWebsiteResponse {
+  Website website = 1;
+}
+
 service WebsiteService {
   rpc WebsiteByHandle(WebsiteByHandleRequest) returns (WebsiteByHandleResponse) {}
+  rpc CreateWebsite(CreateWebsiteRequest) returns (CreateWebsiteResponse) {}
 }
