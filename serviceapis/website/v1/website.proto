@@ -42,7 +42,29 @@ message WebsitePage {
   string id = 1;
   string title = 2;
   optional string subtitle = 3;
-  repeated WebsiteSection sections = 4;
+  string url_slug = 4;
+  repeated WebsiteSection sections = 5;
+}
+
+message WebsiteConfig {
+  string id = 1;
+  string default_page_id = 2;
+  string default_page_url_slug = 3;
+}
+
+message Palette {
+  string id = 1;
+  string color_one = 2;
+  string color_two = 3;
+  string color_three = 4;
+  string color_four = 5;
+  string color_five = 6;
+  string color_six = 7;
+}
+
+message WebsiteStyles {
+  string id = 1;
+  Palette palette = 2;
 }
 
 message Website {
@@ -51,6 +73,8 @@ message Website {
   string name = 3;
   optional string description = 4;
   repeated WebsitePage pages = 5;
+  WebsiteConfig config = 6;
+  WebsiteStyles styles = 7;
 }
 
 
@@ -72,7 +96,31 @@ message CreateWebsiteResponse {
   Website website = 1;
 }
 
+message CreateWebsitePageRequest {
+  string website_id = 1;
+  string title = 2;
+  optional string subtitle = 3;
+  string url_slug = 4;
+}
+
+message CreateWebsitePageResponse {
+  WebsitePage page = 1;
+}
+
+message UpdateWebsitePageRequest {
+  string id = 1;
+  string title = 2;
+  optional string subtitle = 3;
+  string url_slug = 4;
+}
+
+message UpdateWebsitePageResponse {
+  WebsitePage page = 1;
+}
+
 service WebsiteService {
   rpc WebsiteByHandle(WebsiteByHandleRequest) returns (WebsiteByHandleResponse) {}
   rpc CreateWebsite(CreateWebsiteRequest) returns (CreateWebsiteResponse) {}
+  rpc CreateWebsitePage(CreateWebsitePageRequest) returns (CreateWebsitePageResponse) {}
+  rpc UpdateWebsitePage(UpdateWebsitePageRequest) returns (UpdateWebsitePageResponse) {}
 }
