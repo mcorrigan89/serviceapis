@@ -2,8 +2,9 @@ syntax = "proto3";
 
 package serviceapis.website.v1;
 
-message SimpleTextComponent {
-  string text = 1;
+message TextComponent {
+  optional string json = 1;
+  optional string html = 2;
 }
 
 message ImageComponent {
@@ -13,16 +14,21 @@ message ImageComponent {
 message WebsiteComponent {
   string id = 1;
   oneof component_content {
-    SimpleTextComponent text_component = 2;
+    TextComponent text_component = 2;
     ImageComponent image_component = 3;
   }
+}
+
+message WebsiteSection {
+  string id = 1;
+  repeated WebsiteComponent components = 2;
 }
 
 message WebsitePage {
   string id = 1;
   optional string title = 2;
   optional string subtitle = 3;
-  repeated WebsiteComponent components = 4;
+  repeated WebsiteSection sections = 4;
 }
 
 message Website {
